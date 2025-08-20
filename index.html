@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,6 +38,146 @@
     /* Mobile menu */
     .hamburger{display:none;width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(0,0,0,0.1)}
 
+    /* ====== IMAGE SLIDER ====== */
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 450px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      height: 100%;
+      width: 100%;
+    }
+    
+    .slide {
+      flex: 0 0 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    .slide-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .slide-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+    
+    .slide-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .slide-description {
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .slider-nav {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      z-index: 10;
+    }
+    
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .slider-dot.active {
+      background: var(--red);
+      transform: scale(1.2);
+    }
+    
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .slider-arrow:hover {
+      background: var(--red);
+      color: white;
+    }
+    
+    .slider-arrow.prev {
+      left: 20px;
+    }
+    
+    .slider-arrow.next {
+      right: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .slider-container {
+        height: 350px;
+      }
+      
+      .slide-title {
+        font-size: 22px;
+      }
+      
+      .slide-description {
+        font-size: 14px;
+      }
+      
+      .slider-arrow {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .slider-container {
+        height: 300px;
+      }
+      
+      .slide-content {
+        padding: 20px;
+      }
+      
+      .slide-title {
+        font-size: 20px;
+      }
+    }
+
     /* ====== HERO (Fiverr-like prominent search) ====== */
     .hero{padding:84px 0 60px;position:relative}
     .hero-inner{display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center}
@@ -65,7 +204,9 @@
     .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
     .card{background:var(--card);border-radius:12px;padding:14px;border:1px solid rgba(0,0,0,0.05);transition:transform .22s ease, box-shadow .22s ease;box-shadow:0 4px 12px rgba(0,0,0,0.03)}
     .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(0,0,0,0.1)}
-    .card-media{height:140px;border-radius:10px;overflow:hidden;margin-bottom:12px;background:linear-gradient(135deg,var(--red),var(--red-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:48px}
+    .card-media{height:140px;border-radius:10px;overflow:hidden;margin-bottom:12px;background:linear-gradient(135deg,var(--red),var(--red-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:48px;position:relative}
+    .card-media img{width:100%;height:100%;object-fit:cover}
+    .card-media .brand-logo{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);max-width:80%;max-height:80%;object-fit:contain}
     .card h3{font-size:16px;margin:6px 0;font-weight:700}
     .meta{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px}
 
@@ -150,6 +291,53 @@
   <main>
     <!-- Home Page -->
     <div id="home" class="page active">
+      <!-- Image Slider Section -->
+      <section class="slider-container">
+        <div class="slider" id="image-slider">
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1315&q=80" alt="Digital Marketing" class="slide-img">
+            <div class="slide-content">
+              <h2 class="slide-title">Transform Your Digital Presence</h2>
+              <p class="slide-description">Comprehensive digital marketing strategies that drive growth and increase conversions</p>
+            </div>
+          </div>
+          
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Brand Strategy" class="slide-img">
+            <div class="slide-content">
+              <h2 class="slide-title">Strategic Brand Development</h2>
+              <p class="slide-description">Building powerful brands that resonate with your target audience and stand out in competitive markets</p>
+            </div>
+          </div>
+          
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Web Development" class="slide-img">
+            <div class="slide-content">
+              <h2 class="slide-title">Cutting-Edge Web Solutions</h2>
+              <p class="slide-description">Responsive, high-performance websites designed to convert visitors into customers</p>
+            </div>
+          </div>
+          
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Creative Design" class="slide-img">
+            <div class="slide-content">
+              <h2 class="slide-title">Impactful Creative Design</h2>
+              <p class="slide-description">Stunning visual content that captures attention and communicates your brand story effectively</p>
+            </div>
+          </div>
+        </div>
+        
+        <button class="slider-arrow prev">&#10094;</button>
+        <button class="slider-arrow next">&#10095;</button>
+        
+        <div class="slider-nav">
+          <div class="slider-dot active" data-index="0"></div>
+          <div class="slider-dot" data-index="1"></div>
+          <div class="slider-dot" data-index="2"></div>
+          <div class="slider-dot" data-index="3"></div>
+        </div>
+      </section>
+
       <section class="hero">
         <div class="container hero-inner">
           <div>
@@ -205,56 +393,80 @@
         <div style="margin-top:18px" class="grid">
           <!-- Card 1 -->
           <article class="card">
-            <div class="card-media">🎯</div>
+            <div class="card-media">
+              <img src="./images/l3.png" alt="JW Partners Logo">
+              
+            </div>
             <h3>JW Partners (Strategy & Consulting HQ)</h3>
             <div class="meta"><span class="muted">Data-driven insights</span></div>
           </article>
 
           <!-- Card 2 -->
           <article class="card">
-            <div class="card-media">🏥</div>
+            <div class="card-media">
+              <img src="./images/l4.png" alt="Dr. Brand Logo">
+              
+            </div>
             <h3>Dr. Brand</h3>
             <div class="meta"><span class="muted">Complete brand health diagnosis</span></div>
           </article>
 
           <!-- Card 3 -->
           <article class="card">
-            <div class="card-media">🚀</div>
+            <div class="card-media">
+              <img src="./images//l2.png" alt="Viral Lab Logo">
+              
+            </div>
             <h3>Viral Lab</h3>
             <div class="meta"><span class="muted">Social media strategy</span></div>
           </article>
 
           <!-- Card 4 -->
           <article class="card">
-            <div class="card-media">🎨</div>
+            <div class="card-media">
+              <img src="./images//l7.png" alt="DesignHub 24 Logo">
+              
+            </div>
             <h3>DesignHub 24</h3>
             <div class="meta"><span class="muted">24/7 creative design services</span></div>
           </article>
 
           <!-- Card 5 -->
           <article class="card">
-            <div class="card-media">🎬</div>
+            <div class="card-media">
+              <img src="./images/l1.png" alt="Cut Cut Production Logo">
+              
+            </div>
             <h3>Cut Cut Production</h3>
             <div class="meta"><span class="muted">Professional video production</span></div>
           </article>
 
           <!-- Card 6 -->
           <article class="card">
-            <div class="card-media">✨</div>
+            <div class="card-media">
+              <img src="./images//l6.png" alt="Premium Events Logo">
+             
+            </div>
             <h3>Premium Events</h3>
             <div class="meta"><span class="muted">Luxury brand experiences</span></div>
           </article>
 
           <!-- Card 7 -->
           <article class="card">
-            <div class="card-media">🤝</div>
+            <div class="card-media">
+              <img src="./images/l5.png" alt="B2B Outsource Team Logo">
+              
+            </div>
             <h3>B2B Outsource Team</h3>
             <div class="meta"><span class="muted">Dedicated marketing teams</span></div>
           </article>
 
           <!-- Card 8 -->
           <article class="card">
-            <div class="card-media">🌍</div>
+            <div class="card-media">
+              <img src="./images/l8.png" alt="Export Partner Logo">
+              
+            </div>
             <h3>Export Partner</h3>
             <div class="meta"><span class="muted">International market expansion</span></div>
           </article>
@@ -627,12 +839,12 @@
                 </svg>
                 <div>
                   <div style="font-weight:600">Phone</div>
-                  <div class="muted">+1 (555) 123-4567</div>
+                  <div class="muted">+9477 786 2238</div>
                 </div>
               </div>
               
               <div class="contact-method">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 <div>
@@ -648,7 +860,7 @@
                 </svg>
                 <div>
                   <div style="font-weight:600">Address</div>
-                  <div class="muted">123 Brand Street, Suite 500<br>New York, NY 10001</div>
+                  <div class="muted"> 04 Peters Pl, Negombo 11410</div>
                 </div>
               </div>
               
@@ -684,8 +896,7 @@
           </div>
           
           <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215256018774!2d-73.98784468459382!3d40.74844047932798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1629999999999!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
-          </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.243184503672!2d79.84967817333418!3d7.21307611476946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2ef8a65cb9aff%3A0xe6cc3fb1764e0d36!2sJW%20Partners%20Integrated%20Solutions!5e0!3m2!1sen!2slk!4v1755686465106!5m2!1sen!2slk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>   </div>
         </div>
       </section>
     </div>
@@ -986,6 +1197,89 @@
         showPage('home');
       }
     });
+
+    // Image Slider functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const slider = document.getElementById('image-slider');
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.slider-dot');
+      const prevBtn = document.querySelector('.slider-arrow.prev');
+      const nextBtn = document.querySelector('.slider-arrow.next');
+      
+      let currentIndex = 0;
+      let autoSlideInterval;
+      
+      // Function to update slider position
+      function updateSlider() {
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Update active dot
+        dots.forEach((dot, index) => {
+          if (index === currentIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+      
+      // Next slide
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlider();
+        resetAutoSlide();
+      }
+      
+      // Previous slide
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateSlider();
+        resetAutoSlide();
+      }
+      
+      // Go to specific slide
+      function goToSlide(index) {
+        currentIndex = index;
+        updateSlider();
+        resetAutoSlide();
+      }
+      
+      // Auto slide
+      function startAutoSlide() {
+        autoSlideInterval = setInterval(nextSlide, 5000);
+      }
+      
+      // Reset auto slide timer
+      function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+      }
+      
+      // Add event listeners
+      if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+      if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+      
+      // Add click events to dots
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          goToSlide(index);
+        });
+      });
+      
+      // Start auto sliding
+      startAutoSlide();
+      
+      // Pause auto slide on hover
+      slider.addEventListener('mouseenter', () => {
+        clearInterval(autoSlideInterval);
+      });
+      
+      // Resume auto slide when not hovering
+      slider.addEventListener('mouseleave', () => {
+        startAutoSlide();
+      });
+    });
   </script>
 </body>
 </html>
+
