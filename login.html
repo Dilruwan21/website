@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JW Partners — Login / Sign Up</title>
+  <meta name="description" content="Login or create an account with JW Partners to access exclusive services and resources." />
+  <style>
+    /* ====== Colors & Base ====== */
+    :root{
+      --red:#dc2626; /* primary */
+      --red-dark:#991b1b;
+      --black:#0b0b0b;
+      --muted:#666666;
+      --card:#f5f5f5;
+      --glass: rgba(0,0,0,0.03);
+      --max-width:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#fff; color:var(--black); margin:0; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+    /* ====== Top NAV ====== */
+    header{position:sticky;top:0;z-index:50;background: rgba(255,255,255,0.9);backdrop-filter: blur(6px);border-bottom:1px solid rgba(0,0,0,0.05)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{font-weight:800;color:var(--red);font-size:20px;letter-spacing:0.4px}
+    .nav .actions{display:flex;align-items:center;gap:12px}
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .nav-links a{padding:6px 10px;border-radius:8px;color:var(--muted);font-weight:600;font-size:14px}
+    .nav-links a:hover{color:var(--black);background:rgba(0,0,0,0.02)}
+    .btn{display:inline-block;padding:9px 16px;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn-primary{background:linear-gradient(90deg,var(--red),var(--red-dark));box-shadow:0 8px 28px rgba(220,38,38,0.15);color:#fff}
+    .btn-ghost{border:1px solid rgba(0,0,0,0.1);padding:8px 14px;border-radius:10px;color:var(--muted)}
+
+    /* Mobile menu */
+    .hamburger{display:none;width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(0,0,0,0.1)}
+
+    /* ====== Login/Signup Page Styles ====== */
+    .auth-section {
+      padding: 80px 0;
+      background: #fafafa;
+      min-height: calc(100vh - 200px);
+    }
+    
+    .auth-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+    
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .auth-tab {
+      flex: 1;
+      padding: 16px;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--muted);
+      background: rgba(0,0,0,0.02);
+    }
+    
+    .auth-tab.active {
+      color: var(--red);
+      background: white;
+      border-bottom: 2px solid var(--red);
+    }
+    
+    .auth-form-container {
+      padding: 30px;
+    }
+    
+    .auth-form {
+      display: none;
+    }
+    
+    .auth-form.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .form-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: var(--black);
+    }
+    
+    .form-subtitle {
+      color: var(--muted);
+      margin: 0 0 24px;
+      font-size: 14px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--black);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+    }
+    
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .forgot-password {
+      color: var(--red);
+      font-weight: 600;
+    }
+    
+    .form-footer {
+      text-align: center;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    
+    .form-footer a {
+      color: var(--red);
+      font-weight: 600;
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 24px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(0,0,0,0.1);
+    }
+    
+    .divider span {
+      padding: 0 12px;
+    }
+    
+    .social-auth {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      background: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .social-btn:hover {
+      background: rgba(0,0,0,0.02);
+    }
+    
+    .social-btn.google {
+      color: #DB4437;
+    }
+    
+    .social-btn.facebook {
+      color: #4267B2;
+    }
+    
+    /* ====== Footer ====== */
+    footer{padding:48px 0;border-top:1px solid rgba(0,0,0,0.05);margin-top:40px;background:var(--card)}
+    .footer-grid{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start}
+    .socials{display:flex;gap:12px}
+    
+    /* Consultation CTA in footer */
+    .footer-cta{background:var(--red);color:white;padding:24px;border-radius:12px;text-align:center}
+    .footer-cta h3{margin-top:0;font-size:20px}
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .auth-container {
+        margin: 0 20px;
+      }
+      
+      .auth-form-container {
+        padding: 20px;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .auth-section {
+        padding: 60px 0;
+      }
+      
+      .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">JW<span style="color:var(--muted);font-weight:600">Partners</span></div>
+      </div>
+
+      <nav style="display:flex;align-items:center;gap:18px">
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="strategy.html">Our Strategy</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="actions">
+          <a class="btn-ghost" href="auth.html">Sign in</a>
+          <a class="btn btn-primary" href="consultation.html">Book Consultation</a>
+          <button class="hamburger" id="hamburger" aria-label="open menu">☰</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="auth-section">
+      <div class="container">
+        <div class="auth-container">
+          <div class="auth-tabs">
+            <div class="auth-tab active" data-tab="login">Login</div>
+            <div class="auth-tab" data-tab="signup">Sign Up</div>
+          </div>
+          
+          <div class="auth-form-container">
+            <!-- Login Form -->
+            <form class="auth-form active" id="login-form">
+              <h2 class="form-title">Welcome back</h2>
+              <p class="form-subtitle">Sign in to access your account and continue your journey with us</p>
+              
+              <div class="form-group">
+                <label class="form-label" for="login-email">Email Address</label>
+                <input type="email" id="login-email" class="form-input" placeholder="Enter your email" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="login-password">Password</label>
+                <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required>
+              </div>
+              
+              <div class="form-options">
+                <label class="remember-me">
+                  <input type="checkbox">
+                  Remember me
+                </label>
+                <a href="forgot-password.html" class="forgot-password">Forgot password?</a>
+              </div>
+              
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+              
+              <div class="divider"><span>Or continue with</span></div>
+              
+              <div class="social-auth">
+                <button type="button" class="social-btn google">
+                  <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
+                    <path fill="#DB4437" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
+                  </svg>
+                  Google
+                </button>
+                
+                <button type="button" class="social-btn facebook">
+                  <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                    <path fill="#4267B2" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                  </svg>
+                  Facebook
+                </button>
+              </div>
+              
+              <div class="form-footer">
+                Don't have an account? <a href="#" id="switch-to-signup">Sign up</a>
+              </div>
+            </form>
+            
+            <!-- Sign Up Form -->
+            <form class="auth-form" id="signup-form">
+              <h2 class="form-title">Create account</h2>
+              <p class="form-subtitle">Join JW Partners to access exclusive services and resources</p>
+              
+              <div class="form-group">
+                <label class="form-label" for="signup-name">Full Name</label>
+                <input type="text" id="signup-name" class="form-input" placeholder="Enter your full name" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="signup-email">Email Address</label>
+                <input type="email" id="signup-email" class="form-input" placeholder="Enter your email" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="signup-password">Password</label>
+                <input type="password" id="signup-password" class="form-input" placeholder="Create a password" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="signup-confirm-password">Confirm Password</label>
+                <input type="password" id="signup-confirm-password" class="form-input" placeholder="Confirm your password" required>
+              </div>
+              
+              <div class="form-group">
+                <label class="remember-me">
+                  <input type="checkbox" required>
+                  I agree to the <a href="terms.html" style="color: var(--red);">Terms of Service</a> and <a href="privacy.html" style="color: var(--red);">Privacy Policy</a>
+                </label>
+              </div>
+              
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+              
+              <div class="divider"><span>Or sign up with</span></div>
+              
+              <div class="social-auth">
+                <button type="button" class="social-btn google">
+                  <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
+                    <path fill="#DB4437" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
+                  </svg>
+                  Google
+                </button>
+                
+                <button type="button" class="social-btn facebook">
+                  <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                    <path fill="#4267B2" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                  </svg>
+                  Facebook
+                </button>
+              </div>
+              
+              <div class="form-footer">
+                Already have an account? <a href="#" id="switch-to-login">Sign in</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-cta">
+        <h3>Ready to transform your brand?</h3>
+        <p>Book a free consultation with our team to discuss your project</p>
+        <a href="consultation.html" class="btn btn-primary" style="background:#fff;color:var(--red);margin-top:16px">Book Free Consultation</a>
+      </div>
+      
+      <div class="footer-grid">
+        <div>
+          <h3 style="margin:0 0 8px">JW Partners</h3>
+          <p class="muted" style="margin:0 0 12px">Luxury digital marketing for ambitious brands — brand, creative, production & export.</p>
+          <div class="socials">
+            <a class="pill" href="https://linkedin.com">LinkedIn</a>
+            <a class="pill" href="https://instagram.com">Instagram</a>
+            <a class="pill" href="https://youtube.com">YouTube</a>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;gap:8px;justify-content:flex-end;align-items:center">
+            <a href="privacy.html" class="muted">Privacy</a>
+            <a href="terms.html" class="muted">Terms</a>
+            <a href="contact.html" class="muted">Contact</a>
+          </div>
+          <div style="text-align:right;margin-top:14px;color:var(--muted);font-size:13px">© JW Partners • All rights reserved</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const ham = document.getElementById('hamburger');
+    ham && ham.addEventListener('click', ()=>{
+      const node = document.querySelector('.nav-links');
+      if(!node) return;
+      if(node.style.display === 'flex'){
+        node.style.display = '';
+      } else {
+        node.style.display = 'flex';
+        node.style.flexDirection = 'column';
+        node.style.position = 'absolute';
+        node.style.top = '64px';
+        node.style.right = '20px';
+        node.style.background = '#fff';
+        node.style.borderRadius = '12px';
+        node.style.padding = '10px';
+        node.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+        node.style.border = '1px solid rgba(0,0,0,0.05)';
+      }
+    });
+
+    // Auth form tabs functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabs = document.querySelectorAll('.auth-tab');
+      const forms = document.querySelectorAll('.auth-form');
+      const switchToSignup = document.getElementById('switch-to-signup');
+      const switchToLogin = document.getElementById('switch-to-login');
+      
+      // Switch tab function
+      function switchTab(tabName) {
+        // Update tabs
+        tabs.forEach(tab => {
+          if (tab.dataset.tab === tabName) {
+            tab.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+          }
+        });
+        
+        // Update forms
+        forms.forEach(form => {
+          if (form.id === `${tabName}-form`) {
+            form.classList.add('active');
+          } else {
+            form.classList.remove('active');
+          }
+        });
+      }
+      
+      // Add click events to tabs
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          switchTab(this.dataset.tab);
+        });
+      });
+      
+      // Switch from login to signup
+      if (switchToSignup) {
+        switchToSignup.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchTab('signup');
+        });
+      }
+      
+      // Switch from signup to login
+      if (switchToLogin) {
+        switchToLogin.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchTab('login');
+        });
+      }
+      
+      // Form submission
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      
+      if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          // Add your login logic here
+          alert('Login functionality would be implemented here');
+        });
+      }
+      
+      if (signupForm) {
+        signupForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          // Add your signup logic here
+          alert('Signup functionality would be implemented here');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
